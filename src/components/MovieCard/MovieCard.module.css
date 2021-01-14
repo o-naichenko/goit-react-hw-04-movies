@@ -1,0 +1,13 @@
+.genreList {
+  display: flex;
+  list-style-type: none;
+}
+.genreListItem + .genreListItem {
+  margin-left: 10px;
+}
+.movieCard {
+  display: flex;
+}
+.textContainer {
+  margin-left: 20px;
+}

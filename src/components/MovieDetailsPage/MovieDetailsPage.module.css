@@ -1,0 +1,12 @@
+.goBackBtn {
+  margin: 0;
+  /* padding: 5px; */
+  background-color: var(--blue);
+  border: 0;
+  outline: none;
+  color: var(--pale-green);
+}
+.goBackBtn:focus,
+.goBackBtn:hover {
+  color: var(--red);
+}

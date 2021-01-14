@@ -1,0 +1,31 @@
+.header {
+  margin: 0;
+  padding: 20px;
+}
+.list {
+  margin: -10px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+.listItem {
+  margin: 10px;
+  width: calc((100% - 60px) / 3);
+}
+.listItem + .listItem {
+  margin-top: 10px;
+}
+.link {
+  text-decoration: none;
+  color: #000;
+  transition: all 0.1s ease;
+}
+.link:hover,
+.link:focus {
+  color: var(--red);
+}
+.moviePoster {
+  max-width: 100%;
+  max-height: 100%;
+}
