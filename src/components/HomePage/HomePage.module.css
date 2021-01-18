@@ -11,7 +11,7 @@
 }
 .listItem {
   margin: 10px;
-  width: calc((100% - 60px) / 3);
+  width: calc((100% - 80px) / 4);
 }
 .listItem + .listItem {
   margin-top: 10px;
@@ -23,9 +23,8 @@
 }
 .link:hover,
 .link:focus {
-  color: var(--red);
+  color: var(--blue);
 }
 .moviePoster {
   max-width: 100%;
-  max-height: 100%;
 }

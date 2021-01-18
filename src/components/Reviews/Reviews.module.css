@@ -1,0 +1,18 @@
+.showMoreBtn {
+  margin: 0;
+  padding: 5px;
+  outline: none;
+  font-weight: 700;
+  border: 0;
+  color: var(--blue);
+  background-color: var(--pale-green);
+}
+.showMoreBtn:focus,
+.showMoreBtn:hover {
+  color: var(--pale-green);
+  background-color: var(--blue);
+}
+.showMoreBtnDiv {
+  padding: 10px;
+  background-color: var(--pale-green);
+}

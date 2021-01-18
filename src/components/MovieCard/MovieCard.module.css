@@ -5,6 +5,9 @@
 .genreListItem + .genreListItem {
   margin-left: 10px;
 }
+.img {
+  width: calc((100% - 80px) / 4);
+}
 .movieCard {
   display: flex;
 }

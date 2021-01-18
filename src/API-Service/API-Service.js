@@ -5,13 +5,21 @@ class ApiService {
     this.query = '';
     this.queryPage = 1;
     this.movieId = null;
+    this.imgPath = 'https://image.tmdb.org/t/p/w500';
+  }
+  getImgPath(imgPath) {
+    if (imgPath) {
+      return `${this.imgPath}/${imgPath}`;
+    }
+    return null;
   }
   getTrendingMovies() {
-    return fetch(`${this.API_URL}/trending/all/day?api_key=${this.API_KEY}`)
+    return fetch(`${this.API_URL}/trending/movie/day?api_key=${this.API_KEY}`)
       .then(r => r.json())
       .then(({ results }) => results);
   }
-  searchMovies() {
+  searchMovies(query) {
+    this.query = query;
     return fetch(
       `${this.API_URL}/search/movie?api_key=${this.API_KEY}&query=${this.query}&${this.queryPage}`,
     )
@@ -24,19 +32,21 @@ class ApiService {
       `${this.API_URL}/movie/${this.movieId}?api_key=${this.API_KEY}`,
     ).then(r => r.json());
   }
-  getMovieCredits() {
+  getMovieCredits(movieId) {
+    this.movieId = movieId;
     return fetch(
-      `${this.API_URL}/movie/${this.movieId}/credits?api_key=${this.API_KEY}>`,
+      `${this.API_URL}/movie/${this.movieId}/credits?api_key=${this.API_KEY}`,
     )
       .then(r => r.json())
-      .then(({ results }) => results);
+      .then(r => r.cast);
   }
-  getMovieReviews() {
+  getMovieReviews(movieId) {
+    this.movieId = movieId;
     return fetch(
-      `${this.API_URL}/movie/${this.movieId}/reviews?api_key=${this.API_KEY}&${this.queryPage}`,
+      `${this.API_URL}/movie/${this.movieId}/reviews?api_key=${this.API_KEY}&page=${this.queryPage}`,
     )
       .then(r => r.json())
-      .then(({ results }) => results);
+      .then(r => r.results);
   }
   setSearchQuery(queryString) {
     this.searchQuery = queryString.toLowerCase().split(' ').join('+');

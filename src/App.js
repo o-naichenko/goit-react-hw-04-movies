@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, Route, Switch } from 'react-router-dom';
 import s from './App.module.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import MovieDetailsPage from './components/MovieDetailsPage';
 import MoviesPage from './components/MoviesPage';

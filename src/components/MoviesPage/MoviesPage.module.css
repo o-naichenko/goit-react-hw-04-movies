@@ -1,0 +1,36 @@
+.btn {
+  display: inline-block;
+  margin: 0;
+  padding: 5px;
+  border: 0;
+  outline: none;
+  font-weight: 700;
+  color: var(--blue);
+  background-color: var(--pale-green);
+  text-decoration: none;
+}
+.btn:focus,
+.btn:hover {
+  color: var(--pale-green);
+  background-color: var(--blue);
+}
+.form {
+  padding: 20px;
+}
+.input {
+  padding: 4px;
+  outline: 0;
+  border: 1px solid var(--blue);
+}
+.link {
+  text-decoration: none;
+  color: var(--grey);
+}
+.link:hover,
+.link:focus {
+  color: var(--blue);
+}
+
+.item + .item {
+  margin-top: 10px;
+}

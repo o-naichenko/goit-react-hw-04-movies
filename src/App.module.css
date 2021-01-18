@@ -5,13 +5,14 @@
 }
 .link {
   text-decoration: none;
-  color: #fff;
+  color: var(--grey);
 }
 .link + .link {
   margin-left: 10px;
 }
 .activeLink {
-  color: var(--red);
+  color: #fff;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.29);
 }
 .nav {
   font-weight: 700;

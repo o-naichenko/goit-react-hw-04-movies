@@ -1,12 +1,22 @@
-.goBackBtn {
+.btn {
+  display: inline-block;
   margin: 0;
-  /* padding: 5px; */
-  background-color: var(--blue);
+  padding: 5px;
   border: 0;
   outline: none;
-  color: var(--pale-green);
+  font-weight: 700;
+  color: var(--blue);
+  background-color: var(--pale-green);
+  text-decoration: none;
 }
-.goBackBtn:focus,
-.goBackBtn:hover {
-  color: var(--red);
+.btn:focus,
+.btn:hover {
+  color: var(--pale-green);
+  background-color: var(--blue);
+}
+.nav {
+  margin: 0;
+}
+.navItem + .navItem {
+  margin-top: 10px;
 }

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import s from './MovieCard.module.css';
 
+import apiService from '../../API-Service';
 export default function MovieCard({ movie }) {
-  console.log(movie);
   const getReleaseDate = () => {
     return movie.release_date ? movie.release_date.slice(0, 4) : null;
   };
+
   const getUserScore = () => {
     if (movie.vote_average) {
       return `User score: ${movie.vote_average * 10} %`;
@@ -17,7 +18,8 @@ export default function MovieCard({ movie }) {
   return (
     <div className={s.movieCard}>
       <img
-        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+        className={s.img}
+        src={apiService.getImgPath(movie.poster_path)}
         alt={movie.title || movie.name}
       />
       <div className={s.textContainer}>
