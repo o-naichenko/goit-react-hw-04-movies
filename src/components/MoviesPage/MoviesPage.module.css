@@ -14,6 +14,9 @@
   color: var(--pale-green);
   background-color: var(--blue);
 }
+.disabled {
+  visibility: hidden;
+}
 .form {
   padding: 20px;
 }

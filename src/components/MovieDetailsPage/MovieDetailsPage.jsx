@@ -26,7 +26,6 @@ export default function MovieDetailsPage() {
     apiService.getMovieDetails(movieId).then(setMovie);
   }, [movie, movieId]);
 
-  console.log(location);
   const onGoBack = () => {
     history.push(location?.state?.from ?? '/');
   };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import classNames from 'classnames';
 
 import s from './MoviesPage.module.css';
 
@@ -9,17 +10,29 @@ export default function MoviesPage() {
   const history = useHistory();
   const location = useLocation();
   const { url } = useRouteMatch();
-  const comeBackQuery = location.search;
 
+  const [status, setStatus] = useState('idle');
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
 
+  function fetchMovies(query) {
+    apiService.searchMovies(query).then(res => {
+      if (res.length === 0) {
+        setStatus('error');
+        console.log(res);
+        return;
+      }
+      setMovies(res);
+      setStatus('resolved');
+    });
+  }
+
   useEffect(() => {
+    const comeBackQuery = new URLSearchParams(location.search).get('query');
     if (comeBackQuery) {
-      apiService.searchMovies(comeBackQuery).then(res => setMovies(res));
-      history.push({ ...location, search: comeBackQuery });
+      fetchMovies(comeBackQuery);
     }
-  }, []);
+  }, [location.search, query]);
 
   const onChange = e => {
     setQuery(e.target.value);
@@ -27,8 +40,13 @@ export default function MoviesPage() {
 
   const onSubmit = e => {
     e.preventDefault();
-    apiService.searchMovies(query).then(res => setMovies(res));
-    history.push({ ...location, search: query });
+    if (query === '') {
+      e.currentTarget[0].value = `Enter movie name`;
+      console.dir(e.currentTarget[0].value);
+      return;
+    }
+    fetchMovies(query);
+    history.push({ ...location, search: `query=${query}` });
   };
   return (
     <div className={s.container}>
@@ -39,10 +57,15 @@ export default function MoviesPage() {
           value={query}
           onChange={onChange}
         />
-        <button className={s.btn} type="submit">
+        <button
+          disabled={query === '' && true}
+          className={classNames(s.btn, query === '' && s.disabled)}
+          type="submit"
+        >
           Search
         </button>
       </form>
+      {status === 'error' && <p>No movies found</p>}
       <ul className={s.list}>
         {movies &&
           movies.map(movie => (
