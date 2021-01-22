@@ -4,17 +4,21 @@ import ShowMore from 'react-show-more-button/dist/module';
 
 import s from './Reviews.module.css';
 import apiService from '../../API-Service';
-
 export default function Reviews({ movieId }) {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState(null);
+  const [status, setStatus] = useState('idle');
   useEffect(() => {
-    apiService.getMovieReviews(movieId).then(setReviews);
+    setStatus('pending');
+    apiService.getMovieReviews(movieId).then(res => {
+      res.length === 0 ? setStatus('error') : setReviews(res);
+      setStatus('resolved');
+    });
   }, [movieId]);
 
   return (
     <div>
-      {reviews.length === 0 && <p>We don`t have any reviews for this movie.</p>}
-      {reviews.length > 0 &&
+      {status === 'error' && <p>We don`t have any reviews for this movie.</p>}
+      {status === 'resolved' &&
         reviews.map(review => (
           <ShowMore
             classNameButton={s.showMoreBtn}

@@ -7,17 +7,22 @@ import apiService from '../../API-Service';
 import defaultActorImage from '../../images/default-actor-picture.png';
 export default function Cast({ movieId }) {
   const [cast, setCast] = useState(null);
+  const [status, setStatus] = useState('idle');
   useEffect(() => {
     if (cast !== null) {
       return;
     }
-
-    apiService.getMovieCredits(movieId).then(setCast);
+    apiService.getMovieCredits(movieId).then(res => {
+      res.length === 0 ? setStatus('error') : setCast(res);
+      setStatus('resolved');
+      console.log(res);
+    });
   }, [cast, movieId]);
 
   return (
     <div className={s.container}>
-      {cast && (
+      {status === 'error' && <p>There`s no cast info now</p>}
+      {status === 'resolved' && (
         <ul className={s.list}>
           {cast.map(actor => (
             <li key={actor.credit_id} className={s.item}>
