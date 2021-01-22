@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import s from './MoviesPage.module.css';
 
 import apiService from '../../API-Service';
+import MyLoader from '../MyLoader';
 
 export default function MoviesPage() {
   const history = useHistory();
@@ -16,6 +17,7 @@ export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
 
   function fetchMovies(query) {
+    setStatus('pending');
     apiService.searchMovies(query).then(res => {
       if (res.length === 0) {
         setStatus('error');
@@ -65,6 +67,7 @@ export default function MoviesPage() {
           Search
         </button>
       </form>
+      {status === 'pending' && <MyLoader />}
       {status === 'error' && <p>No movies found</p>}
       <ul className={s.list}>
         {movies &&

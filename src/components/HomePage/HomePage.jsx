@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import s from './HomePage.module.css';
 
-import Loader from 'react-loader-spinner';
+import MyLoader from '../MyLoader';
 import apiService from '../../API-Service';
 
 export default function HomePage() {
@@ -39,13 +39,7 @@ export default function HomePage() {
             </li>
           ))
         ) : (
-          <Loader
-            type="ThreeDots"
-            color="var(--blue)"
-            height={40}
-            width={40}
-            style={{ margin: '0 auto' }}
-          />
+          <MyLoader />
         )}
       </ul>
     </div>

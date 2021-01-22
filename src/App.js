@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { NavLink, Route, Switch } from 'react-router-dom';
 import s from './App.module.css';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
-import MovieDetailsPage from './components/MovieDetailsPage';
-import MoviesPage from './components/MoviesPage';
-import HomePage from './components/HomePage';
+import MyLoader from './components/MyLoader';
+
+const HomePage = lazy(() =>
+  import('./components/HomePage' /* webpackChunkName: "home-page" */),
+);
+const MovieDetailsPage = lazy(() =>
+  import(
+    './components/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */
+  ),
+);
+const MoviesPage = lazy(() =>
+  import('./components/MoviesPage' /* webpackChunkName: "movies-page" */),
+);
 
 function App() {
   return (
@@ -19,17 +28,19 @@ function App() {
         </NavLink>
       </nav>
       <div className={s.container}>
-        <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-          <Route path="/movies" exact>
-            <MoviesPage />
-          </Route>
-          <Route path="/movies/:movieId">
-            <MovieDetailsPage />
-          </Route>
-        </Switch>
+        <Suspense fallback={<MyLoader />}>
+          <Switch>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
+            <Route path="/movies" exact>
+              <MoviesPage />
+            </Route>
+            <Route path="/movies/:movieId">
+              <MovieDetailsPage />
+            </Route>
+          </Switch>
+        </Suspense>
       </div>
     </>
   );

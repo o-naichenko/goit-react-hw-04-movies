@@ -15,7 +15,7 @@
   background-color: var(--blue);
 }
 .disabled {
-  visibility: hidden;
+  color: var(--grey);
 }
 .form {
   padding: 20px;

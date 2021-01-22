@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import s from './Cast.module.css';
-import apiService from '../../API-Service';
 
+import s from './Cast.module.css';
+
+import apiService from '../../API-Service';
 import defaultActorImage from '../../images/default-actor-picture.png';
 export default function Cast({ movieId }) {
   const [cast, setCast] = useState(null);

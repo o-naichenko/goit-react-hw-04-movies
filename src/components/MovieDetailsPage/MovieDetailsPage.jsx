@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import {
   NavLink,
   useHistory,
@@ -10,8 +10,12 @@ import {
 import s from './MovieDetailsPage.module.css';
 import apiService from '../../API-Service';
 import MovieCard from '../MovieCard';
-import Cast from '../Cast';
-import Reviews from '../Reviews';
+import MyLoader from '../MyLoader';
+
+const Cast = lazy(() => import('../Cast' /* webpackChunkName: "cast" */));
+const Reviews = lazy(() =>
+  import('../Reviews' /* webpackChunkName: "reviews" */),
+);
 
 export default function MovieDetailsPage() {
   const history = useHistory();
@@ -51,12 +55,14 @@ export default function MovieDetailsPage() {
           </li>
         </ul>
       </nav>
-      <Route path={`${url}/cast`}>
-        <Cast movieId={movieId} />
-      </Route>
-      <Route path={`${url}/reviews`}>
-        <Reviews movieId={movieId} />
-      </Route>
+      <Suspense fallback={<MyLoader />}>
+        <Route path={`${url}/cast`}>
+          <Cast movieId={movieId} />
+        </Route>
+        <Route path={`${url}/reviews`}>
+          <Reviews movieId={movieId} />
+        </Route>
+      </Suspense>
     </div>
   );
 }
