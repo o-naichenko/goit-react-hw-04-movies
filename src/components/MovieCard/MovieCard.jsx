@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import s from './MovieCard.module.css';
 
+import defaultMovieImg from '../../images/defaultMovieImg.png';
 import apiService from '../../API-Service';
 export default function MovieCard({ movie }) {
   const getReleaseDate = () => {
@@ -19,7 +20,7 @@ export default function MovieCard({ movie }) {
     <div className={s.movieCard}>
       <img
         className={s.img}
-        src={apiService.getImgPath(movie.poster_path)}
+        src={apiService.getImgPath(movie.poster_path) ?? defaultMovieImg}
         alt={movie.title || movie.name}
       />
       <div className={s.textContainer}>
