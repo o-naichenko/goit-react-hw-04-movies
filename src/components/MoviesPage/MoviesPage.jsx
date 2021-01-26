@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -21,20 +21,12 @@ export default function MoviesPage() {
     apiService.searchMovies(query).then(res => {
       if (res.length === 0) {
         setStatus('error');
-        console.log(res);
         return;
       }
       setMovies(res);
       setStatus('resolved');
     });
   }
-
-  useEffect(() => {
-    const comeBackQuery = new URLSearchParams(location.search).get('query');
-    if (comeBackQuery) {
-      fetchMovies(comeBackQuery);
-    }
-  }, [location.search, query]);
 
   const onChange = e => {
     setQuery(e.target.value);
@@ -61,7 +53,7 @@ export default function MoviesPage() {
         />
         <button
           disabled={query === '' && true}
-          className={classNames(s.btn, query === '' && s.disabled)}
+          className={classNames(s.btn, query && s.disabled)}
           type="submit"
         >
           Search

@@ -1,18 +1,27 @@
-.showMoreBtn {
-  margin: 0;
-  padding: 5px;
-  outline: none;
+.author {
   font-weight: 700;
-  border: 0;
+}
+.item + .item {
+  margin-top: 20px;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+.showMoreBtn {
+  text-decoration: none;
+  margin: 0;
   color: var(--blue);
-  background-color: var(--pale-green);
 }
 .showMoreBtn:focus,
 .showMoreBtn:hover {
-  color: var(--pale-green);
-  background-color: var(--blue);
+  text-decoration: underline;
+  color: var(--grey);
 }
 .showMoreBtnDiv {
   padding: 10px;
   background-color: var(--pale-green);
+}
+.text {
+  margin: 0;
 }

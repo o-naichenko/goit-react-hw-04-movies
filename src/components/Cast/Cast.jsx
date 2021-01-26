@@ -13,9 +13,12 @@ export default function Cast({ movieId }) {
       return;
     }
     apiService.getMovieCredits(movieId).then(res => {
-      res.length === 0 ? setStatus('error') : setCast(res);
+      if (res.length === 0) {
+        setStatus('error');
+        return;
+      }
+      setCast(res);
       setStatus('resolved');
-      console.log(res);
     });
   }, [cast, movieId]);
 
