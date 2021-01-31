@@ -13,11 +13,11 @@ export default function MoviesPage() {
   const { url } = useRouteMatch();
 
   const [status, setStatus] = useState('idle');
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(null);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    if (query !== '') {
+    if (query !== null) {
       return;
     }
     if (location.search) {
@@ -42,15 +42,11 @@ export default function MoviesPage() {
 
   const onChange = e => {
     setQuery(e.target.value);
+    // history.push({ ...location, search: `query=${query}` });
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    if (query === '') {
-      e.currentTarget[0].value = `Enter movie name`;
-      console.dir(e.currentTarget[0].value);
-      return;
-    }
     fetchMovies(query);
     history.push({ ...location, search: `query=${query}` });
   };
@@ -60,11 +56,11 @@ export default function MoviesPage() {
         <input
           className={s.input}
           type="text"
-          value={query}
+          value={query ?? ''}
           onChange={onChange}
         />
         <button
-          disabled={query === '' && true}
+          disabled={!query && true}
           className={classNames(s.btn, query && s.disabled)}
           type="submit"
         >
