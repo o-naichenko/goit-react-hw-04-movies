@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import s from './HomePage.module.css';
 
-import MyLoader from '../MyLoader';
+import MyLoader from '../../components/MyLoader';
 import apiService from '../../API-Service';
 
 export default function HomePage() {

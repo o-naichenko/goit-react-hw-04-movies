@@ -1,20 +1,21 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import {
+  Route,
   NavLink,
   useHistory,
   useLocation,
   useParams,
   useRouteMatch,
-  Route,
 } from 'react-router-dom';
 import s from './MovieDetailsPage.module.css';
 import apiService from '../../API-Service';
-import MovieCard from '../MovieCard';
-import MyLoader from '../MyLoader';
-
-const Cast = lazy(() => import('../Cast' /* webpackChunkName: "cast" */));
+import MovieCard from '../../components/MovieCard';
+import MyLoader from '../../components/MyLoader';
+const Cast = lazy(() =>
+  import('../../components/Cast' /* webpackChunkName: "cast" */),
+);
 const Reviews = lazy(() =>
-  import('../Reviews' /* webpackChunkName: "reviews" */),
+  import('../../components/Reviews' /* webpackChunkName: "reviews" */),
 );
 
 export default function MovieDetailsPage() {
@@ -23,15 +24,18 @@ export default function MovieDetailsPage() {
   const { url } = useRouteMatch();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const goBackLocation = useRef(null);
+
   useEffect(() => {
-    if (movie) {
+    if (movie || goBackLocation.current) {
       return;
     }
     apiService.getMovieDetails(movieId).then(setMovie);
-  }, [movie, movieId]);
+    goBackLocation.current = location?.state?.from ?? '/';
+  }, [location?.state?.from, movie, movieId]);
 
   const onGoBack = () => {
-    history.push(location?.state?.from ?? '/');
+    history.push(goBackLocation.current);
   };
 
   return (

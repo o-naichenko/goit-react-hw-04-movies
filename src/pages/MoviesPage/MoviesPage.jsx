@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import classNames from 'classnames';
 
 import s from './MoviesPage.module.css';
 
 import apiService from '../../API-Service';
-import MyLoader from '../MyLoader';
+import MyLoader from '../../components/MyLoader/';
 
 export default function MoviesPage() {
   const history = useHistory();
@@ -15,6 +15,18 @@ export default function MoviesPage() {
   const [status, setStatus] = useState('idle');
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    if (query !== '') {
+      return;
+    }
+    if (location.search) {
+      const getQuery = new URLSearchParams(location.search);
+      const onGoBackQuery = getQuery.get('query');
+      fetchMovies(onGoBackQuery);
+      setQuery(onGoBackQuery);
+    }
+  }, [location.search, query]);
 
   function fetchMovies(query) {
     setStatus('pending');
@@ -62,7 +74,7 @@ export default function MoviesPage() {
       {status === 'pending' && <MyLoader />}
       {status === 'error' && <p>No movies found</p>}
       <ul className={s.list}>
-        {movies &&
+        {status === 'resolved' &&
           movies.map(movie => (
             <li className={s.item} key={movie.id}>
               <Link

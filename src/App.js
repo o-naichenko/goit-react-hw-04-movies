@@ -5,15 +5,15 @@ import s from './App.module.css';
 import MyLoader from './components/MyLoader';
 
 const HomePage = lazy(() =>
-  import('./components/HomePage' /* webpackChunkName: "home-page" */),
+  import('./pages/HomePage' /* webpackChunkName: "home-page" */),
 );
 const MovieDetailsPage = lazy(() =>
   import(
-    './components/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */
+    './pages/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */
   ),
 );
 const MoviesPage = lazy(() =>
-  import('./components/MoviesPage' /* webpackChunkName: "movies-page" */),
+  import('./pages/MoviesPage' /* webpackChunkName: "movies-page" */),
 );
 
 function App() {
